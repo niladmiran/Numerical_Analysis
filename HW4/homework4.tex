@@ -1,0 +1,274 @@
+\documentclass{article}
+
+% if you need to pass options to natbib, use, e.g.:
+%     \PassOptionsToPackage{numbers, compress}{natbib}
+% before loading neurips_2020
+
+% ready for submission
+% \usepackage{neurips_2020}
+
+% to compile a preprint version, e.g., for submission to arXiv, add add the
+% [preprint] option:
+%     \usepackage[preprint]{neurips_2020}
+
+% to compile a camera-ready version, add the [final] option, e.g.:
+    \usepackage[final]{neurips_2020}
+
+% to avoid loading the natbib package, add option nonatbib:
+     % \usepackage[nonatbib]{neurips_2020}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+
+%% Customized package by Mao Song
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\newcommand*\diff{\mathop{}\!\mathrm{d}}
+\theoremstyle{definition}
+\newtheorem{solution}{Solution}
+
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+
+\title{Homework 4 for SI211: Numerical Analysis}
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to LaTeX to determine where to break the
+% lines. Using \AND forces a line break at that point. So, if LaTeX puts 3 of 4
+% authors names on the first line, and the last on the second line, try using
+% \AND instead of \And before the third author name.
+
+\author{%
+  {Mao Song} \\
+  SIST\\
+  ShanghaiTech University\\
+  Student ID: 2019233134 \\
+  \texttt{maosong@shanghaitech.edu.cn} \\
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+  This is the solution for Homework 4 of SI211: Numerical Analysis, which is taught by Boris Houska.
+\end{abstract}
+
+\section{Problem 1}
+Prove that for all $x\in\mathbb{R}^n$ the inequality 
+\begin{equation}
+  \|x\|_\infty \leq \|x\|_2\leq \|x\|_1\leq n\|x\|_\infty
+\end{equation}
+holds.
+
+\begin{solution}
+  Suppose $x=[x_1,\dots,x_n]^T\in\mathbb{R}^n$, then
+  \begin{align*}
+  \|x\|_\infty&=\max_{i=1,\dots,n}|x_i|=\sqrt{\max_{i=1,\dots,n}x_i^2}\leq \sqrt{\sum_{i=1}^{n}x_i^2}=\|x\|_2\\
+  \|x\|_2&=\sqrt{\sum_{i=1}^{n}x_i^2}\leq \sqrt{\sum_{i=1}^{n}x_i^2+2\sum_{i\neq j}|x_ix_j|}=\sum_{i=1}^{n}|x_i|=\|x\|_1\\
+  \|x\|_1&=\sum_{i=1}^{n}|x_i|\leq n\max_{i=1,\dots,n}|x_i|=n\|x\|_\infty
+  \end{align*}
+\end{solution}
+
+  
+
+
+\section{Problem 2}
+Let $H, \langle \cdot,\cdot\rangle$ be a Hilbert space with norm $\|x\|=\sqrt{\langle x,x\rangle}$. Prove that $\langle x,y\rangle=0$ if and only if we have $\|x+\alpha y\|=\|x-\alpha y\|$ for all scalars $\alpha$.
+
+
+
+\begin{solution}
+If $\langle x,y\rangle=0$, then for any $\alpha\in\mathbb{R}$,
+\begin{align*}
+  &\langle x,x\rangle+2\alpha\langle x,y\rangle+\langle y,y\rangle=\langle x,x\rangle-2\alpha\langle x,y\rangle+\langle y,y\rangle\\
+  \Rightarrow&\|x+\alpha y\|^2=\|x-\alpha y\|^2\\
+  \Rightarrow&\|x+\alpha y\|=\|x-\alpha y\|
+\end{align*}
+where the last equality is because $\|\cdot\|$ is nonnegative.
+
+Now if we have $\|x+\alpha y\|=\|x-\alpha y\|$ for any $\alpha\in\mathbb{R}$. Then
+\begin{align*}
+&\|x+\alpha y\|=\|x-\alpha y\|\\
+\Rightarrow&\|x+\alpha y\|^2=\|x-\alpha y\|^2\\
+\Rightarrow&\langle x,x\rangle+2\alpha\langle x,y\rangle+\langle y,y\rangle=\langle x,x\rangle-2\alpha\langle x,y\rangle+\langle y,y\rangle\\
+\Rightarrow&\alpha\langle x,y\rangle=0
+\end{align*}
+Since $\alpha\in\mathbb{R}$ is arbitrary, we have $\langle x,y\rangle=0$.
+
+
+\end{solution}
+
+
+
+
+\section{Problem 3}
+Prove that the Legendre polynomials
+\begin{equation}
+  P_n=\frac{1}{2^nn!}\frac{\partial^n}{\partial x^n}(x^2-1)^n
+\end{equation}
+are orthogonal with respect to $L_2$-scalar product on the interval $[-1,1]$.
+
+\begin{solution}
+The Legendre polynomials are defined by Legendre's differential equation 
+\begin{equation}
+  \left[(1-x^2)P_k'(x)\right]'+k(k+1)P_k(x)=0, k\in\mathbb{N}
+\end{equation}
+For any $m,n\in\mathbb{N}, m\neq n$, first we let $k=n$ and multiply the equation by $P_m(x)$:
+\begin{equation}
+  P_m(x)\left[(1-x^2)P_n'(x)\right]'+n(n+1)P_m(x)P_n(x)=0
+\end{equation}
+then we let $k=m$ and multiply the equation by $P_n(x)$:
+\begin{equation}
+  P_n(x)\left[(1-x^2)P_m'(x)\right]'+m(m+1)P_n(x)P_m(x)=0
+\end{equation}
+subtracting the above equations yields:
+\begin{align*}
+&P_m(x)\left[(1-x^2)P_n'(x)\right]'-P_n(x)\left[(1-x^2)P_m'(x)\right]'+\left[n(n+1)-m(m+1)\right]P_m(x)P_n(x)=0\\
+\Rightarrow&\left\{(1-x^2)\left[P_m(x)P_n'(x)-P_n(x)P_m'(x)\right]\right\}'+\left[n(n+1)-m(m+1)\right]P_m(x)P_n(x)=0
+\end{align*}
+Since
+\begin{align*}
+&\int_{-1}^{1}\left\{(1-x^2)\left[P_m(x)P_n'(x)-P_n(x)P_m'(x)\right]\right\}'\diff x\\
+=&\left\{(1-x^2)\left[P_m(x)P_n'(x)-P_n(x)P_m'(x)\right]\right\}\Big\vert_{-1}^1\\
+=&0
+\end{align*}
+we have
+\begin{equation}
+  0=\int_{-1}^{1}\left[n(n+1)-m(m+1)\right]P_m(x)P_n(x)\diff x=\int_{-1}^{1}P_m(x)P_n(x)\diff x
+\end{equation}
+which means $P_m(x)$ and $P_n(x)$ ($n\neq m$) are orthogonal with respect to $L_2$-scalar product on the interval $[-1,1]$.
+
+
+
+
+\end{solution}
+
+\section{Problem 4}
+Solve the least-squares optimization problem
+\begin{equation}
+  \min_{p\in P_2}\int_{1}^2|f(x)-p(x)|^2\diff x
+\end{equation}
+for $f(x) =e^x$ by using Legendre polynomials. Here, $P_22$ denotes the set of polynomials of order $2$.
+
+\begin{solution}
+Since the Legendre polynomials
+\begin{equation}
+  P_0(x)=1,\quad P_1(x)=x, \quad P_2(x)=\frac{1}{2}(3x^2-1)
+\end{equation}
+form an orthogonal basis of the space of polynomials of order less than $2$  in $[-1,1]$, applying the shifting function $x\to 2x-3$, we obtain an orthogonal basis of the space of polynomials of order less than $2$  in $[1,2]$:
+\begin{equation}
+  \tilde{P}_0(x)=1,\quad \tilde{P}_1(x)=2x-3, \quad \tilde{P}_2(x)=6x^2-18x+13
+\end{equation}
+after nomarlization, we have
+\begin{equation}
+  L_0(x)=1,\quad L_1(x)=\sqrt{3}(2x-3), \quad L_2(x)=\sqrt{5}(6x^2-18x+13)
+\end{equation}
+Thus $L_1(x),L_2(x), L_3(x)$ form an orthonormal basis for the space of of polynomials of order less than $2$  in $[1,2]$. The solution is then given by 
+\begin{equation}
+  p(x)=\sum_{i=0}^{2}c_kL_k(x)
+\end{equation}
+where
+\begin{align*}
+c_0(x)&=\int_{1}^{2}L_0(x)f(x)\diff x=e^2-e\\
+c_1(x)&=\int_{1}^{2}L_1(x)f(x)\diff x=\sqrt{3}(3e-e^2)\\
+c_2(x)&=\int_{1}^{2}L_2(x)f(x)\diff x=\sqrt{5}(7e^2-19e)
+\end{align*}
+as a result the solution is:
+\begin{align*}
+p(x)&=\sum_{i=0}^{2}c_kL_k(x)=e^2-e+3(3e-e^2)(2x-3)+5(7e^2-19e)(6x^2-18x+13)\\
+&=3e(70ex^2-190x^2-212ex+576x+155e-421)
+\end{align*}
+
+
+
+
+
+\end{solution}
+
+\section{Problem 5}
+Solve the least-squares optimization problem
+\begin{equation}
+  \min_{p\in P_1}\int_{0}^\infty|f(x)-p(x)|^2e^{-x}\diff x
+\end{equation}
+for $f(x) =x^2$. Here, $P_1$ denotes the set of polynomials of order $1$.
+
+
+\begin{solution}
+There are two kind of solutions. 
+\paragraph{Mehtod 1} Since the space is simple, we assume $p(x)=ax+b$, then
+\begin{align*}
+I&=\int_{0}^\infty|f(x)-p(x)|^2e^{-x}\diff x\\
+&=\int_{0}^\infty|x^2-(ax+b)|^2e^{-x}\diff x\\
+&=b^2+(2a-4)b+2a^2-12a+24\\
+&=\left(b+(a-2)\right)^2+(a-4)^2+4
+\end{align*}
+thus $I$ is minimized when $a=4,b=-2$. which means the best approximation polynomial is given by
+\begin{equation}
+  p(x)=4x-2
+\end{equation}
+
+\paragraph{Method 2} Consider the Laguerre polynomials, the Laguerre polynomials are an orthonormal basis for polynomial space in $[0,\infty)$ with respect to the following inner product
+\begin{equation}
+  \langle f,g\rangle=\int_{0}^{\infty}f(x)g(x)e^{-x}\diff x
+\end{equation}
+Thus the best approximation is given by
+\begin{equation}
+  p(x)=c_0L_0(x)+c_1L_1(x)
+\end{equation}
+where $L_0(x)=1$, $L_1(x)=-x+1$, and
+\begin{align*}
+c_0&=\langle f(x),L_0(x)\rangle=\int_{0}^{\infty}x^2e^{-x}\diff x=2\\
+c_1&=\langle f(x),L_1(x)\rangle=\int_{0}^{\infty}x^2(-x+1)e^{-x}\diff x=-4\\
+\end{align*}
+Thus the solution is given by
+\begin{equation}
+  p(x)=2-4(-x+1)=4x-2
+\end{equation}
+which is consistent with the Method $1$.
+
+
+
+\end{solution}
+
+
+
+
+
+\end{document}
